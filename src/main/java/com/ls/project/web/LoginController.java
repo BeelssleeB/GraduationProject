@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ls.project.entity.User;
 import com.ls.project.service.UserService;
 import com.ls.project.utils.RespBean;
+import com.ls.project.utils.VerificationCode;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
@@ -31,8 +35,14 @@ public class LoginController {
          */
         String userName = params.get("userName").toString();
         String password = params.get("userPassword").toString();
+        String code = params.get("code").toString();
         Boolean rememberMe = (Boolean) params.get("rememberMe");
         Subject subject = SecurityUtils.getSubject();
+        String verify_code = subject.getSession().getAttribute("verify_code").toString();
+        if (code == null || verify_code == null || "".equals(code) || !verify_code.toLowerCase().equals(code.toLowerCase())) {
+            //验证码不正确
+            return RespBean.error("验证码不正确");
+        }
         UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
         token.setRememberMe(rememberMe);
         try{
@@ -63,5 +73,14 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return RespBean.ok("退出成功!");
+    }
+
+    @GetMapping("/verifyCode")
+    public void verifyCode(HttpSession session, HttpServletResponse resp) throws IOException {
+        VerificationCode code = new VerificationCode();
+        BufferedImage image = code.getImage();
+        String text = code.getText();
+        session.setAttribute("verify_code", text);
+        VerificationCode.output(image,resp.getOutputStream());
     }
 }
