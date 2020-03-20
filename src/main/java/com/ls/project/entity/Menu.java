@@ -10,7 +10,17 @@ public class Menu {
     private String icon;
     private String nameCh;
     private Integer parentId;
+    private String permission;
+
     private List<Menu> children;
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
 
     public Integer getId() {
         return id;

@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +35,20 @@ public class MenuServiceImpl implements MenuService {
             setChild(p, finalMenus);
         });
         return firstLevel;
+    }
+
+    @Override
+    public Set<String> findAllPermissionByUserId() {
+        String userName = SecurityUtils.getSubject().getPrincipal().toString();
+        User user = userDao.queryUserByUserName(userName);
+        List<String> permissions = menuDao.findAllPermissionByUserId(user.getUserId());
+        Set<String> permission = new HashSet<>();
+        for(String str: permissions) {
+            if(!str.equals("::")){
+                permission.add(str);
+            }
+        }
+        return permission;
     }
 
     private void setChild(Menu p, List<Menu> permissions) {

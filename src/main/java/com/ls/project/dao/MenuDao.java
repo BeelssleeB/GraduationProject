@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface MenuDao {
     List<Menu> findAllMenuByUserId(Integer userId);
+
+    List<String> findAllPermissionByUserId(Integer userId);
 }

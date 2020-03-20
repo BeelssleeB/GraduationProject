@@ -28,10 +28,31 @@ public class ShiroConfig {
 
         //添加shiro内置过滤器
         Map<String, String> filterMap = new LinkedHashMap<String, String>();
-//        filterMap.put("/home","authc");
-//        filterMap.put("/","anon");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
+        filterMap.put("/css/**", "anon");
+        filterMap.put("/fonts/**", "anon");
+        filterMap.put("/img/**", "anon");
+        filterMap.put("/js/**", "anon");
+        filterMap.put("/system/**","anon");
 
+        filterMap.put("/warehouse/info/**","perms[warehouse::info]");
+        filterMap.put("/tool/type/**","perms[tool::type]");
+        filterMap.put("/tool/ledger/**","perms[tool::ledger]");
+        filterMap.put("/tool/storage/**","perms[tool::storage]");
+        filterMap.put("/tool/borrowing/**","perms[tool::borrowing]");
+        filterMap.put("/worksheet/info/**","perms[worksheet::info]");
+        filterMap.put("/worksheet/type/**","perms[worksheet::type]");
+        filterMap.put("/worksheet/log/**","perms[worksheet::log]");
+        filterMap.put("/vehicle/info/**","perms[vehicle::info]");
+        filterMap.put("/vehicle/borrowing/**","perms[vehicle::borrowing]");
+        filterMap.put("/node/info/**","perms[node::info]");
+        filterMap.put("/node/dis/**","perms[node::dis]");
+        filterMap.put("/sys/user/**","perms[sys::user]");
+        filterMap.put("/sys/file/**","perms[sys::file]");
+        filterMap.put("/sys/log/**","perms[sys::log]");
+        filterMap.put("/sys/role/**","perms[sys::role]");
+
+        filterMap.put("/**","authc");
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         return shiroFilterFactoryBean;
     }
 
