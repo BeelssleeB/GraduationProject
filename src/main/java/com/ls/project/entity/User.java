@@ -17,7 +17,7 @@ public class User {
     private String userPassword;
     private String salt;
     private String phone;
-    private Integer enabled;
+    private String enabled;
     private String userAvatar;
     private Date birthday;
 
@@ -85,11 +85,11 @@ public class User {
         this.phone = phone;
     }
 
-    public Integer getEnabled() {
+    public String getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Integer enabled) {
+    public void setEnabled(String enabled) {
         this.enabled = enabled;
     }
 

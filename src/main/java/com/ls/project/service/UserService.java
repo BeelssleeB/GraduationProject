@@ -6,4 +6,6 @@ import java.text.ParseException;
 
 public interface UserService {
     User getUserByUserName(String userName);
+
+    User getUser();
 }

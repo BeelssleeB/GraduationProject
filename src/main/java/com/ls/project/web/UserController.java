@@ -16,11 +16,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(value = "/getuserbyname")
-    private Map<String,Object> getuserbyname(@RequestBody Map params){
-        System.out.println(params.get("userName"));
+    @GetMapping(value = "/getuserinfo")
+    private Map<String,Object> getuser(){
         Map<String,Object> userMap = new HashMap<String,Object>();
-        User user=userService.getUserByUserName(params.get("userName").toString());
+        User user=userService.getUser();
         userMap.put("user",user);
         return userMap;
     }

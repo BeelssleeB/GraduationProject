@@ -47,7 +47,7 @@ public class LoginController {
         token.setRememberMe(rememberMe);
         try{
             User user = userService.getUserByUserName(userName);
-            if (user.getEnabled() != 1) {
+            if (!user.getEnabled().equals("1")) {
                 return RespBean.error("已被禁用，请联系管理员!");
             }
             subject.login(token);
