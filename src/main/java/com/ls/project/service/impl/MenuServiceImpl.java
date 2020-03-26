@@ -21,13 +21,9 @@ public class MenuServiceImpl implements MenuService {
     @Autowired
     private MenuDao menuDao;
 
-    @Autowired
-    private UserDao userDao;
-
     @Override
     public List<Menu> findAllMenuByUserId() {
-        String userName = SecurityUtils.getSubject().getPrincipal().toString();
-        User user = userDao.queryUserByUserName(userName);
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
         List<Menu> menus = menuDao.findAllMenuByUserId(user.getUserId());
         final List<Menu> finalMenus = menus;
         List<Menu> firstLevel = finalMenus.stream().filter(p -> p.getParentId().equals(0)).collect(Collectors.toList());
@@ -39,8 +35,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Set<String> findAllPermissionByUserId() {
-        String userName = SecurityUtils.getSubject().getPrincipal().toString();
-        User user = userDao.queryUserByUserName(userName);
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
         List<String> permissions = menuDao.findAllPermissionByUserId(user.getUserId());
         Set<String> permission = new HashSet<>();
         for(String str: permissions) {

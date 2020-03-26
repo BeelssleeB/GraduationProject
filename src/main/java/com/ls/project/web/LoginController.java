@@ -46,14 +46,9 @@ public class LoginController {
         UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
         token.setRememberMe(rememberMe);
         try{
-            User user = userService.getUserByUserName(userName);
-            if (!user.getEnabled().equals("1")) {
-                return RespBean.error("已被禁用，请联系管理员!");
-            }
             subject.login(token);
+            User user = userService.getUserByUserName(token.getUsername());
             return RespBean.ok("登录成功!",user);
-        }catch (UnknownAccountException e){
-            return RespBean.error("用户名不存在!");
         }catch(IncorrectCredentialsException e){
             return RespBean.error("密码错误!");
         }

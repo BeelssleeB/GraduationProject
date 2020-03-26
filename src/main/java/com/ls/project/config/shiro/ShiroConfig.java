@@ -1,5 +1,6 @@
 package com.ls.project.config.shiro;
 
+import com.ls.project.constants.UserConstants;
 import com.ls.project.utils.UserRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -84,8 +85,8 @@ public class ShiroConfig {
     @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");
-        hashedCredentialsMatcher.setHashIterations(3);
+        hashedCredentialsMatcher.setHashAlgorithmName(UserConstants.ALGORITHM_NAME);
+        hashedCredentialsMatcher.setHashIterations(UserConstants.HASH_ITERATIONS);
         return hashedCredentialsMatcher;
     }
 

@@ -8,4 +8,25 @@
         from user
         where user_name=#{userName}
     </select>
+
+    <update id="updateUser" parameterType="com.ls.project.entity.User">
+        update user t
+        <set>
+            <if test="userName != null">
+                user_name = #{userName},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            phone = #{phone},
+            user_signature = #{userSignature}
+        </set>
+        where t.user_id = #{userId}
+    </update>
+
+    <update id="updateUserPassword">
+        update user t
+        set user_password = #{userPassword}
+        where t.user_name = #{userName}
+    </update>
 </mapper>
