@@ -4,11 +4,15 @@ import com.ls.project.constants.UserConstants;
 import com.ls.project.dao.UserDao;
 import com.ls.project.entity.User;
 import com.ls.project.service.UserService;
+import com.ls.project.utils.FileUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,6 +41,9 @@ public class UserServiceImpl implements UserService {
                 if(effectedNum>0){
                     User shiroUser = (User) SecurityUtils.getSubject().getPrincipal();
                     shiroUser.setUserName(user.getUserName());
+                    shiroUser.setBirthday(user.getBirthday());
+                    shiroUser.setPhone(user.getPhone());
+                    shiroUser.setUserSignature(user.getUserSignature());
                     return true;
                 }
                 else{
@@ -66,7 +73,7 @@ public class UserServiceImpl implements UserService {
                 }
                 //更新密码
                 sh = new SimpleHash(UserConstants.ALGORITHM_NAME, newPwd, salt ,UserConstants.HASH_ITERATIONS);
-                int effectedNum =  userDao.updateUserPassword(sh.toString(), user.getUserName());
+                int effectedNum =  userDao.updateUserPassword(sh.toString(), user.getUserId());
                 if(effectedNum>0){
                     return true;
                 }
@@ -83,4 +90,29 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Transactional
+    @Override
+    public boolean updateUserAvatar(MultipartFile file) throws IOException {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        String fileOriginName = file.getOriginalFilename();
+        if(!fileOriginName.contains(".")){
+            throw new IllegalArgumentException("缺少后缀名");
+        }
+        //生成文件名
+        String md5 = FileUtil.fileMd5(file.getInputStream());
+        fileOriginName = fileOriginName.substring(fileOriginName.lastIndexOf("."));
+        String pathName = user.getUserId() + "/" + md5 + fileOriginName;
+        //生成文件存储路径
+        String fullPath = UserConstants.UPLOAD_FILE_PATH + pathName;
+        FileUtil.saveFile(file, fullPath);
+        //生成文件访问路径
+        String imgURL = UserConstants.FILE_ACCESS_PATH + pathName;
+        int effectedNum =  userDao.updateUserAvatar(user.getUserId(),imgURL);
+        if(effectedNum > 0){
+            return true;
+        }
+        else{
+            throw new RuntimeException("头像上传失败");
+        }
+    }
 }

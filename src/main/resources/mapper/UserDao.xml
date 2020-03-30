@@ -27,6 +27,12 @@
     <update id="updateUserPassword">
         update user t
         set user_password = #{userPassword}
-        where t.user_name = #{userName}
+        where t.user_id = #{userId}
+    </update>
+
+    <update id="updateUserAvatar">
+        update user t
+        set  user_avatar= #{userAvatar}
+        where t.user_id = #{userId}
     </update>
 </mapper>

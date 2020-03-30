@@ -9,5 +9,7 @@ UserDao {
 
     int updateUser(User user);
 
-    int updateUserPassword(@Param("userPassword")String userPassword, @Param("userName")String userName);
+    int updateUserPassword(@Param("userPassword")String userPassword, @Param("userId")Integer userId);
+
+    int updateUserAvatar(@Param("userId") Integer userId, @Param("userAvatar")String userAvatar);
 }

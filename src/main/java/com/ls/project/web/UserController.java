@@ -6,7 +6,9 @@ import com.ls.project.utils.RespBean;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,5 +43,13 @@ public class UserController {
             return RespBean.ok("密码重置成功!");
         }
         return RespBean.error("密码重置失败!");
+    }
+
+    @PostMapping(value="/useravatar")
+    public RespBean updateUserAvatar(MultipartFile file) throws IOException {
+        if(userService.updateUserAvatar(file)){
+            return RespBean.ok("头像设置成功!");
+        }
+        return RespBean.error("头像设置失败!");
     }
 }
