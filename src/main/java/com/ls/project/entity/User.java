@@ -1,6 +1,9 @@
 package com.ls.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * 管理员实体类
@@ -19,7 +22,18 @@ public class User {
     private String phone;
     private String enabled;
     private String userAvatar;
+
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date birthday;
+    private List<Role> role;
+
+    public List<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(List<Role> role) {
+        this.role = role;
+    }
 
     public Integer getUserId() {
         return userId;

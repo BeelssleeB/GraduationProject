@@ -1,6 +1,7 @@
 package com.ls.project.dao;
 
 import com.ls.project.entity.Menu;
+import com.ls.project.entity.Role;
 import com.ls.project.entity.User;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -21,6 +22,26 @@ public class UserDaoTest {
 
     @Autowired
     private MenuDao menuDao;
+
+    @Autowired
+    private UserDao userDao;
+
+    @Test
+    public void sss(){
+        Integer page=0;
+        Integer size=2;
+        List<User> list = userDao.getAllUsers(page,size,null);
+        for(User user:list){
+            for(Role role:user.getRole())
+                System.out.println(role.getNameCh());
+        }
+    }
+
+    @Test
+    public void aaa(){
+        Long l = userDao.getTotal("叶");
+        System.out.println(l);
+    }
 
     @Test
     public void test() throws Exception {

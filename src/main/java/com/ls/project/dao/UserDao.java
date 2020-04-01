@@ -3,8 +3,10 @@ package com.ls.project.dao;
 import com.ls.project.entity.User;
 import org.apache.ibatis.annotations.Param;
 
-public interface
-UserDao {
+import java.util.Date;
+import java.util.List;
+
+public interface UserDao {
     User queryUserByUserName(String userName);
 
     int updateUser(User user);
@@ -12,4 +14,8 @@ UserDao {
     int updateUserPassword(@Param("userPassword")String userPassword, @Param("userId")Integer userId);
 
     int updateUserAvatar(@Param("userId") Integer userId, @Param("userAvatar")String userAvatar);
+
+    Long getTotal(@Param("keyWord") String keyWord);
+
+    List<User> getAllUsers(@Param("page")Integer page,@Param("size")Integer size,@Param("keyWord")String keyWord);
 }

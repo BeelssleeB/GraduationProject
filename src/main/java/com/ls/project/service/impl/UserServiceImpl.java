@@ -5,6 +5,7 @@ import com.ls.project.dao.UserDao;
 import com.ls.project.entity.User;
 import com.ls.project.service.UserService;
 import com.ls.project.utils.FileUtil;
+import com.ls.project.utils.RespPageBean;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,8 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUserName(String userName){
-        User user = userDao.queryUserByUserName(userName);
-        return user;
+        return userDao.queryUserByUserName(userName);
     }
 
     @Override
@@ -114,5 +115,18 @@ public class UserServiceImpl implements UserService {
         else{
             throw new RuntimeException("头像上传失败");
         }
+    }
+
+    @Override
+    public RespPageBean getAllUsers(Integer page, Integer size, String keyWord) {
+        if (page != null && size != null) {
+            page = (page - 1) * size;
+        }
+        List<User> users = userDao.getAllUsers(page,size,keyWord);
+        Long total = userDao.getTotal(keyWord);
+        RespPageBean bean = new RespPageBean();
+        bean.setData(users);
+        bean.setTotal(total);
+        return bean;
     }
 }
