@@ -19,5 +19,9 @@ public interface UserService {
 
     boolean updateUserAvatar(MultipartFile file) throws IOException;
 
-    RespPageBean getAllUsers(Integer page, Integer size, String keyWord);
+    RespPageBean getAllUsers(String keyWord);
+
+    boolean updateUserDetail(User user);
+
+    boolean deleteUser(Integer userId);
 }

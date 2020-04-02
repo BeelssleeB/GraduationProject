@@ -1,8 +1,11 @@
 package com.ls.project.service.impl;
 
 import com.ls.project.constants.UserConstants;
+import com.ls.project.dao.RoleDao;
 import com.ls.project.dao.UserDao;
+import com.ls.project.entity.Role;
 import com.ls.project.entity.User;
+import com.ls.project.entity.User_Role;
 import com.ls.project.service.UserService;
 import com.ls.project.utils.FileUtil;
 import com.ls.project.utils.RespPageBean;
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -21,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private RoleDao roleDao;
 
     @Override
     public User getUserByUserName(String userName){
@@ -118,15 +125,70 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public RespPageBean getAllUsers(Integer page, Integer size, String keyWord) {
-        if (page != null && size != null) {
-            page = (page - 1) * size;
-        }
-        List<User> users = userDao.getAllUsers(page,size,keyWord);
+    public RespPageBean getAllUsers(String keyWord) {
+        List<User> users = userDao.getAllUsers(keyWord);
         Long total = userDao.getTotal(keyWord);
         RespPageBean bean = new RespPageBean();
         bean.setData(users);
         bean.setTotal(total);
         return bean;
+    }
+
+    @Transactional
+    @Override
+    public boolean updateUserDetail(User user) {
+        for(Role role:user.getRole()){
+            System.out.println(role.getId());
+        }
+        List<User_Role> queryInDB = roleDao.getAllRoleIdByUserId(user.getUserId());
+        List<Integer> common = new LinkedList<>();
+        boolean flag;
+        for(Role roleOut:user.getRole()){
+            flag=true;
+            for(User_Role roleInner:queryInDB){
+                if(roleOut.getId().equals(roleInner.getRid())){
+                    common.add(roleOut.getId());
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag){
+                User_Role user_role = new User_Role(user.getUserId(),roleOut.getId());
+                int effectedNum = roleDao.insertRoleIdAndUserId(user_role);
+                if(effectedNum>0) {
+                    System.out.println("插入成功");
+                }
+                else return false;
+            }
+        }
+        for(User_Role roleInner:queryInDB){
+            flag=true;
+            for(Integer com:common){
+                if(com.equals(roleInner.getRid())){
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag){
+                int effectedNum = roleDao.deleteRoleIdAndUserId(user.getUserId(),roleInner.getRid());
+                if(effectedNum>0) {
+                    System.out.println("删除成功");
+                }
+                else return false;
+            }
+        }
+        int effectedNum = userDao.updateUserDetail(user);
+        if(effectedNum>0) {
+            System.out.println("更新成功");
+            return true;
+        }
+        else return false;
+    }
+
+    @Override
+    public boolean deleteUser(Integer userId) {
+        int effectedNum1 = userDao.deleteUser(userId);
+        int effectedNum2 = roleDao.deleteAllRoleIdByUserId(userId);
+        return effectedNum1>0&&effectedNum2>0;
     }
 }

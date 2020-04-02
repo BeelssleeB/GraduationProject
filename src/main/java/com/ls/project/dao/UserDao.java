@@ -17,5 +17,9 @@ public interface UserDao {
 
     Long getTotal(@Param("keyWord") String keyWord);
 
-    List<User> getAllUsers(@Param("page")Integer page,@Param("size")Integer size,@Param("keyWord")String keyWord);
+    List<User> getAllUsers(@Param("keyWord")String keyWord);
+
+    int updateUserDetail(User user);
+
+    int deleteUser(Integer userId);
 }

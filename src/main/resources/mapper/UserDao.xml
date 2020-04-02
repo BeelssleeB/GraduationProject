@@ -39,8 +39,37 @@
             <if test="birthday != null">
                 birthday = #{birthday},
             </if>
-            phone = #{phone},
-            user_signature = #{userSignature}
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="userSignature != null">
+                user_signature = #{userSignature}
+            </if>
+        </set>
+        where t.user_id = #{userId}
+    </update>
+
+    <update id="updateUserDetail" parameterType="com.ls.project.entity.User">
+        update user t
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="userSex != null">
+                user_sex = #{userSex},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="enabled != null">
+                enabled = #{enabled},
+            </if>
+            <if test="userSignature != null">
+                user_signature = #{userSignature}
+            </if>
         </set>
         where t.user_id = #{userId}
     </update>
@@ -66,9 +95,6 @@
             and u.`name` like concat('%',#{keyWord},'%')
         </if>
         ORDER BY u.user_id
-        <if test="page !=null and size!=null">
-            limit #{page},#{size}
-        </if>
     </select>
 
     <select id="getTotal" resultType="java.lang.Long">
@@ -79,4 +105,9 @@
             </if>
         </where>
     </select>
+
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from user
+        where user.user_id=#{userId}
+    </delete>
 </mapper>

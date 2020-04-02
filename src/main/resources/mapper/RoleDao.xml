@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ls.project.dao.RoleDao">
+    <select id="getAllRoles" resultType="com.ls.project.entity.Role">
+        select * from role
+    </select>
+
+    <select id="getAllRoleIdByUserId" resultType="com.ls.project.entity.User_Role">
+        select * from user_role
+        where user_role.uid = #{uid}
+    </select>
+
+    <delete id="deleteRoleIdAndUserId">
+        delete from user_role ur
+        where ur.uid=#{uid} and ur.rid = #{rid}
+    </delete>
+
+    <delete id="deleteAllRoleIdByUserId">
+        delete from user_role ur
+        where ur.uid=#{uid}
+    </delete>
+
+    <insert id="insertRoleIdAndUserId" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id" parameterType="com.ls.project.entity.User_Role">
+            insert into
+            user_role(uid,rid)
+            values
+            (#{uid},#{rid})
+    </insert>
+</mapper>

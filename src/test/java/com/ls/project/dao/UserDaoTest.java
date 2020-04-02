@@ -27,23 +27,6 @@ public class UserDaoTest {
     private UserDao userDao;
 
     @Test
-    public void sss(){
-        Integer page=0;
-        Integer size=2;
-        List<User> list = userDao.getAllUsers(page,size,null);
-        for(User user:list){
-            for(Role role:user.getRole())
-                System.out.println(role.getNameCh());
-        }
-    }
-
-    @Test
-    public void aaa(){
-        Long l = userDao.getTotal("叶");
-        System.out.println(l);
-    }
-
-    @Test
     public void test() throws Exception {
         System.out.println(md5("123"));
     }

@@ -1,12 +1,15 @@
 package com.ls.project.web;
 
+import com.ls.project.entity.Role;
+import com.ls.project.entity.User;
+import com.ls.project.service.RoleService;
 import com.ls.project.service.UserService;
+import com.ls.project.utils.RespBean;
 import com.ls.project.utils.RespPageBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sys/user")
@@ -15,10 +18,32 @@ public class UserManageController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
     @GetMapping("/")
-    public RespPageBean getAllUsers(@RequestParam(value = "page",defaultValue = "1")Integer page,
-                                    @RequestParam(value="size")Integer size,
-                                    @RequestParam(value = "keyword")String keyword){
-        return userService.getAllUsers(page,size,keyword);
+    public RespPageBean getAllUsers(@RequestParam(value = "keyword")String keyword){
+        return userService.getAllUsers(keyword);
+    }
+
+    @GetMapping("/getallroles")
+    public List<Role> getAllRoles(){
+        return roleService.getAllRoles();
+    }
+
+    @PutMapping("/updateuser")
+    public RespBean putUserInfo(@RequestBody User user) {
+        if(userService.updateUserDetail(user)){
+            return RespBean.ok("信息更新成功!");
+        }
+        return RespBean.error("信息更新失败!");
+    }
+
+    @DeleteMapping("/deleteuser/{id}")
+    public RespBean deleteUser(@PathVariable Integer userId){
+        if (userService.deleteUser(userId)) {
+            return RespBean.ok("删除成功!");
+        }
+        return RespBean.error("删除失败!");
     }
 }
