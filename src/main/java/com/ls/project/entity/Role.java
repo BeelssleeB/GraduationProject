@@ -3,6 +3,7 @@ package com.ls.project.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
+import java.util.List;
 
 public class Role {
     private Integer id;
@@ -14,6 +15,16 @@ public class Role {
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date modifyTime;
+
+    private List<Menu> menu;
+
+    public List<Menu> getMenu() {
+        return menu;
+    }
+
+    public void setMenu(List<Menu> menu) {
+        this.menu = menu;
+    }
 
     public Integer getId() {
         return id;

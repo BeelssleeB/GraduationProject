@@ -25,12 +25,18 @@ public class MenuServiceImpl implements MenuService {
     public List<Menu> findAllMenuByUserId() {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         List<Menu> menus = menuDao.findAllMenuByUserId(user.getUserId());
-        final List<Menu> finalMenus = menus;
-        List<Menu> firstLevel = finalMenus.stream().filter(p -> p.getParentId().equals(0)).collect(Collectors.toList());
-        firstLevel.parallelStream().forEach(p -> {
-            setChild(p, finalMenus);
-        });
-        return firstLevel;
+        return getMenus(menus);
+    }
+
+    @Override
+    public List<Menu> getAllMenus() {
+        List<Menu> menus = menuDao.getAllMenus();
+        return getMenus(menus);
+    }
+
+    @Override
+    public List<Integer> getMenuByRoleId(Integer roleId) {
+        return menuDao.getMenuByRoleId(roleId);
     }
 
     @Override
@@ -44,6 +50,15 @@ public class MenuServiceImpl implements MenuService {
             }
         }
         return permission;
+    }
+
+    private List<Menu> getMenus(List<Menu> menus) {
+        final List<Menu> finalMenus = menus;
+        List<Menu> firstLevel = finalMenus.stream().filter(p -> p.getParentId().equals(0)).collect(Collectors.toList());
+        firstLevel.parallelStream().forEach(p -> {
+            setChild(p, finalMenus);
+        });
+        return firstLevel;
     }
 
     private void setChild(Menu p, List<Menu> permissions) {

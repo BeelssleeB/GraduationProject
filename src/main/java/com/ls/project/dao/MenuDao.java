@@ -8,4 +8,8 @@ public interface MenuDao {
     List<Menu> findAllMenuByUserId(Integer userId);
 
     List<String> findAllPermissionByUserId(Integer userId);
+
+    List<Menu> getAllMenus();
+
+    List<Integer> getMenuByRoleId(Integer roleId);
 }

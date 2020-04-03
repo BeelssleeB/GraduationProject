@@ -7,6 +7,47 @@
         select * from role
     </select>
 
+    <select id="getAllRolesByPage" resultType="com.ls.project.entity.Role">
+        select * from role r
+        <where>
+            <if test="keyWord!=null">
+                r.`name_ch` like concat('%',#{keyWord},'%')
+            </if>
+        </where>
+        ORDER BY r.id
+        <if test="page!=null and size!=null">
+            limit #{page},#{size}
+        </if>
+    </select>
+
+    <select id="getRolesTotal" resultType="java.lang.Long">
+        select count(*) from role r
+        <where>
+            <if test="keyWord!=null">
+                r.`name_ch` like concat('%',#{keyWord},'%')
+            </if>
+        </where>
+    </select>
+
+    <update id="update">
+        update role r
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="nameCh != null">
+                name_ch = #{nameCh},
+            </if>
+            modify_time = #{modifyTime}
+        </set>
+        where r.id = #{id}
+    </update>
+
+    <select id="getRoleByName" resultType="com.ls.project.entity.Role">
+        select * from role
+        where role.name_ch = #{nameCh}
+    </select>
+
     <select id="getAllRoleIdByUserId" resultType="com.ls.project.entity.User_Role">
         select * from user_role
         where user_role.uid = #{uid}
@@ -28,5 +69,36 @@
             user_role(uid,rid)
             values
             (#{uid},#{rid})
+    </insert>
+
+    <insert id="save" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id" parameterType="com.ls.project.entity.Role">
+            insert into
+            role(name,name_ch,create_time,modify_time)
+            values
+            (#{name},#{nameCh},#{createTime},#{modifyTime})
+    </insert>
+
+    <delete id="deleteRole">
+        delete from role
+        where role.id=#{roleId}
+    </delete>
+
+    <delete id="deleteRoleIdAtUser_Role">
+        delete from user_role ur
+        where ur.rid = #{roleId}
+    </delete>
+
+    <delete id="deleteRoleIdAtRole_Menu">
+        delete from role_menu rm
+        where rm.rid = #{roleId}
+    </delete>
+
+    <insert id="saveRoleIdAndMenuId">
+        insert into role_menu(rid, mid) values
+        <foreach collection="menuIds" item="menuId"
+                 separator=",">
+            (#{roleId}, #{menuId})
+        </foreach>
     </insert>
 </mapper>

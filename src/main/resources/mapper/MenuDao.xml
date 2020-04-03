@@ -13,6 +13,7 @@
         where user_role.uid = #{userId}))
         order by menu.id
     </select>
+
     <select id="findAllPermissionByUserId" resultType="string">
         select permission from menu where menu.id in
         (SELECT role_menu.mid
@@ -22,5 +23,18 @@
         from user_role
         where user_role.uid = #{userId}))
         order by menu.id
+    </select>
+
+    <select id="getAllMenus" resultType="com.ls.project.entity.Menu">
+        select id,name_ch,parent_id
+        from menu
+        order by menu.id
+    </select>
+
+    <select id="getMenuByRoleId" resultType="java.lang.Integer">
+        select rm.mid
+        from role_menu rm
+        where rm.rid=#{roleId}
+        order by rm.id
     </select>
 </mapper>

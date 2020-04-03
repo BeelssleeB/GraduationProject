@@ -40,8 +40,8 @@ public class UserManageController {
     }
 
     @DeleteMapping("/deleteuser/{id}")
-    public RespBean deleteUser(@PathVariable Integer userId){
-        if (userService.deleteUser(userId)) {
+    public RespBean deleteUser(@PathVariable Integer id){
+        if (userService.deleteUser(id)) {
             return RespBean.ok("删除成功!");
         }
         return RespBean.error("删除失败!");

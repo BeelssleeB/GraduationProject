@@ -8,5 +8,9 @@ import java.util.Set;
 public interface MenuService {
     List<Menu> findAllMenuByUserId();
 
+    List<Menu> getAllMenus();
+
+    List<Integer> getMenuByRoleId(Integer roleId);
+
     Set<String> findAllPermissionByUserId();
 }
