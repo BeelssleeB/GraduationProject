@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 
 @Configuration
-public class SessionFactoryConfiguraton {
+public class SessionFactoryConfiguration {
     @Value("${mybatis_config_file}")
     private String mybatisConfigFilePath;
 

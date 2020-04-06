@@ -1,7 +1,6 @@
 package com.ls.project.service.impl;
 
 import com.ls.project.dao.WarehouseInfoDao;
-import com.ls.project.entity.Role;
 import com.ls.project.entity.WarehouseInfo;
 import com.ls.project.entity.WarehouseType;
 import com.ls.project.service.WarehouseInfoService;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 @Service

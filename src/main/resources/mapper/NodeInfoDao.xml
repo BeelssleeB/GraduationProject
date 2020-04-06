@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ls.project.dao.NodeInfoDao">
+
+    <select id="getAllNodeInfoByPage" resultMap="nodeInfo">
+
+    </select>
+
+    <delete id="deleteNodeById">
+
+    </delete>
+
+    <update id="updateNodeInfo" parameterType="com.ls.project.entity.Node">
+
+    </update>
+
+    <insert id="saveNodeInfo" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id" parameterType="com.ls.project.entity.Node">
+
+    </insert>
+
+    <select id="getNodeTotal" resultType="java.lang.Long">
+
+    </select>
+
+    <select id="getNodeByName" resultType="com.ls.project.entity.Node">
+
+    </select>
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ls.project.dao.WarehouseInfoDao">
+
+    <resultMap id="BaseResultMap" type="com.ls.project.entity.WarehouseInfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="treasury_code" property="treasuryCode" jdbcType="VARCHAR"/>
+        <result column="warehouse_name" property="warehouseName" jdbcType="VARCHAR"/>
+        <result column="warehouse_type" property="warehouseType" jdbcType="INTEGER"/>
+        <result column="node" property="node" jdbcType="VARCHAR"/>
+        <result column="note" property="note" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="warehouseInfo" type="com.ls.project.entity.WarehouseInfo" extends="BaseResultMap">
+        <association property="warehouseTypeClass" javaType="com.ls.project.entity.WarehouseType">
+            <id column="id1" property="id"/>
+            <result column="warehouse_type1" property="warehouseType"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllWarehouseByPage" resultMap="warehouseInfo">
+        SELECT ti.id,ti.treasury_code,ti.warehouse_name,ti.warehouse_type,ti.node,ti.note,tt.warehouse_type AS warehouse_type1,tt.id as id1
+        FROM `treasury_information` ti,treasury_type tt
+        where ti.warehouse_type = tt.id
+        <if test="keyWord != null">
+            and ti.warehouse_name like concat('%',#{keyWord},'%')
+        </if>
+        <if test="typeId != null">
+            and ti.warehouse_type = #{typeId}
+        </if>
+        ORDER BY ti.id
+        <if test="page!=null and size!=null">
+            limit #{page},#{size}
+        </if>
+    </select>
+
+    <select id="getAllWarehouseType" resultType="com.ls.project.entity.WarehouseType">
+        select * from treasury_type
+    </select>
+
+    <delete id="deleteWarehouseById">
+        delete from treasury_information ti
+        where ti.id = #{warehouseId}
+    </delete>
+
+    <update id="updateWarehouseInfo" parameterType="com.ls.project.entity.WarehouseInfo">
+        update treasury_information ti
+        <set>
+            <if test="treasuryCode != null">
+                treasury_code = #{treasuryCode},
+            </if>
+            <if test="warehouseName != null">
+                warehouse_name = #{warehouseName},
+            </if>
+            <if test="warehouseType != 0">
+                warehouse_type = #{warehouseType},
+            </if>
+            <if test="note != null">
+                note = #{note}
+            </if>
+        </set>
+        where ti.id = #{id}
+    </update>
+
+    <insert id="saveWarehouseInfo" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id" parameterType="com.ls.project.entity.WarehouseInfo">
+            insert into
+            treasury_information(treasury_code,warehouse_name,warehouse_type,node,note)
+            values
+            (#{treasuryCode},#{warehouseName},#{warehouseType},#{node},#{note})
+    </insert>
+
+    <select id="getWarehouseTotal" resultType="java.lang.Long">
+        select count(*) from treasury_information ti
+        <where>
+            <if test="keyWord != null">
+                and ti.warehouse_name like concat('%',#{keyWord},'%')
+            </if>
+            <if test="typeId != null">
+                and ti.warehouse_type = #{typeId}
+            </if>
+        </where>
+    </select>
+
+    <select id="getWarehouseByName" resultType="com.ls.project.entity.WarehouseInfo">
+        select * from treasury_information ti
+        where ti.warehouse_name = #{warehouseName}
+    </select>
+</mapper>

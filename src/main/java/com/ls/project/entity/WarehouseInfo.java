@@ -2,7 +2,7 @@ package com.ls.project.entity;
 
 public class WarehouseInfo {
     private Integer id;
-    private String treasureCode;
+    private String treasuryCode;
     private String warehouseName;
     private Integer warehouseType;
     private String node;
@@ -17,12 +17,12 @@ public class WarehouseInfo {
         this.id = id;
     }
 
-    public String getTreasureCode() {
-        return treasureCode;
+    public String getTreasuryCode() {
+        return treasuryCode;
     }
 
-    public void setTreasureCode(String treasureCode) {
-        this.treasureCode = treasureCode;
+    public void setTreasuryCode(String treasuryCode) {
+        this.treasuryCode = treasuryCode;
     }
 
     public String getWarehouseName() {

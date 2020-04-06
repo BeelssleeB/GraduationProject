@@ -1,6 +1,5 @@
 package com.ls.project.web;
 
-import com.ls.project.entity.Role;
 import com.ls.project.entity.WarehouseInfo;
 import com.ls.project.entity.WarehouseType;
 import com.ls.project.service.WarehouseInfoService;

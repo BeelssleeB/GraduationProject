@@ -11,7 +11,7 @@
         select * from role r
         <where>
             <if test="keyWord!=null">
-                r.`name_ch` like concat('%',#{keyWord},'%')
+                and r.`name_ch` like concat('%',#{keyWord},'%')
             </if>
         </where>
         ORDER BY r.id
@@ -24,7 +24,7 @@
         select count(*) from role r
         <where>
             <if test="keyWord!=null">
-                r.`name_ch` like concat('%',#{keyWord},'%')
+                and r.`name_ch` like concat('%',#{keyWord},'%')
             </if>
         </where>
     </select>
