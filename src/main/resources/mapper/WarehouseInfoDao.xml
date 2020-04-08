@@ -54,7 +54,7 @@
             <if test="warehouseName != null">
                 warehouse_name = #{warehouseName},
             </if>
-            <if test="warehouseType != 0">
+            <if test="warehouseType != null">
                 warehouse_type = #{warehouseType},
             </if>
             <if test="note != null">

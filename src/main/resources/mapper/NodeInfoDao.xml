@@ -4,28 +4,81 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ls.project.dao.NodeInfoDao">
 
-    <select id="getAllNodeInfoByPage" resultMap="nodeInfo">
+    <resultMap id="BaseResultMap" type="com.ls.project.entity.Node">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="principal" property="principal" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="modify_time" property="modifyTime" jdbcType="DATE"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="note" property="note" jdbcType="VARCHAR"/>
+    </resultMap>
 
+    <resultMap id="nodeInfo" type="com.ls.project.entity.Node" extends="BaseResultMap">
+        <association property="user" javaType="com.ls.project.entity.User">
+            <id column="id1" property="userId"/>
+            <result column="name1" property="name"/>
+            <result column="phone" property="phone"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllNodeInfoByPage" resultMap="nodeInfo">
+        SELECT ni.id,ni.code,ni.name,ni.principal,ni.create_time,ni.modify_time,ni.address,ni.note,u.user_id as id1,u.name as name1,u.phone
+        FROM `node_info` ni,user u
+        where ni.id = u.user_id
+        <if test="keyWord != null">
+            and ni.name like concat('%',#{keyWord},'%')
+        </if>
+        ORDER BY ni.id
+        <if test="page!=null and size!=null">
+            limit #{page},#{size}
+        </if>
     </select>
 
     <delete id="deleteNodeById">
-
+        delete from node_info ni
+        where ni.id = #{nodeId}
     </delete>
 
     <update id="updateNodeInfo" parameterType="com.ls.project.entity.Node">
-
+        update node_info ni
+        <set>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="principal != null">
+                principal = #{principal},
+            </if>
+            <if test="address != null">
+                address = #{address}
+            </if>
+        </set>
+        where ni.id = #{id}
     </update>
 
     <insert id="saveNodeInfo" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id" parameterType="com.ls.project.entity.Node">
-
+            insert into
+            node_info(code,name,principal,create_time,modify_time,address,note)
+            values
+            (#{code},#{name},#{principal},#{createTime},#{modifyTime},#{address},#{note})
     </insert>
 
     <select id="getNodeTotal" resultType="java.lang.Long">
-
+        select count(*) from node_info ni
+        <where>
+            <if test="keyWord != null">
+                and ni.name like concat('%',#{keyWord},'%')
+            </if>
+        </where>
     </select>
 
     <select id="getNodeByName" resultType="com.ls.project.entity.Node">
-
+        select * from node_info ni
+        where ni.name = #{nodeName}
     </select>
 </mapper>

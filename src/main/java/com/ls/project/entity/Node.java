@@ -10,7 +10,7 @@ public class Node {
     private String name;
     private Integer principal;
     private String address;
-    private String node;
+    private String note;
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
@@ -59,12 +59,12 @@ public class Node {
         this.address = address;
     }
 
-    public String getNode() {
-        return node;
+    public String getNote() {
+        return note;
     }
 
-    public void setNode(String node) {
-        this.node = node;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public Date getCreateTime() {

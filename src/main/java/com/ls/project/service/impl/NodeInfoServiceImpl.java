@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,6 +44,7 @@ public class NodeInfoServiceImpl implements NodeInfoService {
         if (n != null && n.getId() != node.getId()) {
             throw new IllegalArgumentException(node.getName() + "已存在");
         }
+        node.setModifyTime(new Date());
         int effectedNum = nodeInfoDao.updateNodeInfo(node);
         //对其他表可能的额外代码
         return effectedNum>0;
@@ -55,6 +57,8 @@ public class NodeInfoServiceImpl implements NodeInfoService {
         if (n != null) {
             throw new IllegalArgumentException(node.getName() + "已存在");
         }
+        node.setModifyTime(new Date());
+        node.setCreateTime(new Date());
         int effectedNum = nodeInfoDao.saveNodeInfo(node);
         //对其他表可能的额外代码
         return effectedNum>0;

@@ -1,7 +1,6 @@
 package com.ls.project.dao;
 
 import com.ls.project.entity.Node;
-import com.ls.project.entity.WarehouseInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.List;
 public interface NodeInfoDao {
     List<Node> getAllNodeInfoByPage(@Param("keyWord") String keyWord, @Param("page") Integer page, @Param("size") Integer size);
 
-    int deleteNodeById(Integer warehouseId);
+    int deleteNodeById(Integer nodeId);
 
     int updateNodeInfo(Node node);
 
