@@ -34,7 +34,7 @@
     <select id="getMenuByRoleId" resultType="java.lang.Integer">
         select rm.mid
         from role_menu rm
-        where rm.rid=#{roleId}
+        where rm.rid=#{roleId} and rm.mid>6
         order by rm.id
     </select>
 </mapper>

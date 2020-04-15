@@ -45,13 +45,4 @@ public class UserDaoTest {
         return result.toString();
     }
 
-    @Test
-    public void find(){
-        List<Menu> all= new ArrayList<>();
-        all= menuDao.findAllMenuByUserId(2);
-        for(Menu menu: all){
-            System.out.println(menu.getId());
-        }
-    }
-
 }
