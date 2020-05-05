@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 15/04/2020 18:26:09
+ Date: 05/05/2020 22:02:09
 */
 
 SET NAMES utf8mb4;
@@ -251,8 +251,8 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 1, 'wang', '不论成功还是失败，都是系于自己', '汪淼', '91c8479748a30fae3666e0e10fece612', 'T70sHCxY5oceVd+UF1tgRA==', '123456', '1', 'http://localhost:8081/file/avatar/1/a915858d7027cb6b1c5eb67bb618463a.jpg', '1990-01-01 14:42:27');
-INSERT INTO `user` VALUES (2, 0, 'ye', '自信是成功的第一诀窍', '叶文洁', '34f85d659b60adf6e060bc3ddc349e77', 'wmot5qwvD/g5xDSnbRib8g==', '1234567', '1', NULL, '1990-01-01 14:42:27');
+INSERT INTO `user` VALUES (1, 1, 'wang', '不论成功还是失败，都是系于自己', '汪淼', '91c8479748a30fae3666e0e10fece612', 'T70sHCxY5oceVd+UF1tgRA==', '123456', '1', 'http://localhost:8081/file/avatar/1/a915858d7027cb6b1c5eb67bb618463a.jpg', '1990-01-01 00:00:00');
+INSERT INTO `user` VALUES (2, 0, 'ye', '自信是成功的第一诀窍', '叶文洁', '34f85d659b60adf6e060bc3ddc349e77', 'wmot5qwvD/g5xDSnbRib8g==', '1234567', '1', 'http://localhost:8081/file/avatar/2/17ceee157d536b3dac708ca5ec8f9798.png', '1990-01-01 14:42:27');
 INSERT INTO `user` VALUES (3, 1, 'luo', '所有的努力，大家都会绕个大权回报给你', '罗辑', '90933e2040f0ba2a110088b0d3b48169', '3YQCwU42zrZ1z9zn2DXaJQ==', '12345678', '1', NULL, '1990-01-01 14:42:27');
 INSERT INTO `user` VALUES (4, 0, 'cheng', '觉得自己做的到和做不到，都在一念之间', '程心', '2ba290e34aae105009bb71e92218a119', 'SyV9ghhidG211BNLWjV1Kw==', '123456789', '1', NULL, '1990-01-01 14:42:27');
 
@@ -274,5 +274,37 @@ INSERT INTO `user_role` VALUES (1, 1, 1);
 INSERT INTO `user_role` VALUES (2, 2, 2);
 INSERT INTO `user_role` VALUES (3, 3, 4);
 INSERT INTO `user_role` VALUES (4, 4, 3);
+
+-- ----------------------------
+-- Table structure for vehicle_infomation
+-- ----------------------------
+DROP TABLE IF EXISTS `vehicle_infomation`;
+CREATE TABLE `vehicle_infomation`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `vehicle_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `vehicle_location` int(11) NULL DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `modify_time` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of vehicle_infomation
+-- ----------------------------
+INSERT INTO `vehicle_infomation` VALUES (1, '车辆一', 'car1', 2, NULL, '2020-04-16 16:05:11', '2020-04-16 16:05:38');
+INSERT INTO `vehicle_infomation` VALUES (2, '车辆二', 'car2', 2, NULL, '2020-04-16 16:05:30', '2020-04-16 16:05:38');
+INSERT INTO `vehicle_infomation` VALUES (3, '车辆三', 'car3', 2, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
+INSERT INTO `vehicle_infomation` VALUES (4, '车辆四', 'car4', 4, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
+INSERT INTO `vehicle_infomation` VALUES (5, '车辆五', 'car5', 4, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
+INSERT INTO `vehicle_infomation` VALUES (6, '车辆六', 'car6', 4, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
+INSERT INTO `vehicle_infomation` VALUES (7, '车辆七', 'car7', 6, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
+INSERT INTO `vehicle_infomation` VALUES (8, '车辆八', 'car8', 6, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
+INSERT INTO `vehicle_infomation` VALUES (9, '车辆九', 'car9', 6, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
+INSERT INTO `vehicle_infomation` VALUES (10, '车辆十', 'car10', 6, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
+INSERT INTO `vehicle_infomation` VALUES (11, '车辆十一', 'car11', 8, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
+INSERT INTO `vehicle_infomation` VALUES (12, '车辆十二', 'car12', 8, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
+INSERT INTO `vehicle_infomation` VALUES (13, '车辆十三', 'car13', 8, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
 
 SET FOREIGN_KEY_CHECKS = 1;
