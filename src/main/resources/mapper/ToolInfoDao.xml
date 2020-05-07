@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ls.project.dao.ToolInfoDao">
+
+    <resultMap id="BaseResultMap" type="com.ls.project.entity.ToolInfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="tool_code" property="toolCode" jdbcType="VARCHAR"/>
+        <result column="tool_name" property="toolName" jdbcType="VARCHAR"/>
+        <result column="tool_type" property="toolType" jdbcType="INTEGER"/>
+        <result column="tool_location" property="toolLocation" jdbcType="VARCHAR"/>
+        <result column="note" property="note" jdbcType="VARCHAR"/>
+        <result column="unit" property="unit" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="modify_time" property="modifyTime" jdbcType="DATE"/>
+        <result column="use_time" property="useTime" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="toolInfo" type="com.ls.project.entity.ToolInfo" extends="BaseResultMap">
+        <association property="toolTypeName" javaType="com.ls.project.entity.ToolType">
+            <id column="id1" property="id"/>
+            <result column="toolType1" property="toolType"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllToolByPage" resultMap="toolInfo">
+        SELECT ti.id, ti.tool_code, ti.tool_name, ti.tool_type, ti.tool_location, ti.note, ti.unit, ti.create_time, ti.modify_time,ti.use_time,tt.id AS id1,tt.tool_type AS toolType1
+        FROM `tool_info` ti,tool_type tt
+        WHERE ti.tool_type = tt.id
+        <if test="keyWord != null">
+            and ti.tool_name like concat('%',#{keyWord},'%')
+        </if>
+        ORDER BY ti.id
+        <if test="page!=null and size!=null">
+            limit #{page},#{size}
+        </if>
+    </select>
+
+    <select id="getAllToolTypes" resultType="com.ls.project.entity.ToolType">
+        select * from tool_type
+    </select>
+
+    <delete id="deleteToolById">
+        delete from tool_info ti
+        where ti.id = #{toolId}
+    </delete>
+
+    <update id="updateToolInfo" parameterType="com.ls.project.entity.ToolInfo">
+        update tool_info ti
+        <set>
+            <if test="toolCode != null">
+                tool_code = #{toolCode},
+            </if>
+            <if test="toolName != null">
+                tool_name = #{toolName},
+            </if>
+            <if test="toolType != null">
+                tool_type = #{toolType},
+            </if>
+            <if test="toolLocation != null">
+                tool_location = #{toolLocation},
+            </if>
+            <if test="note != null">
+                note = #{note},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime}
+            </if>
+            <if test="unit != null">
+                unit = #{unit}
+            </if>
+        </set>
+        where ti.id = #{id}
+    </update>
+
+    <insert id="saveToolInfo" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id" parameterType="com.ls.project.entity.ToolInfo">
+            insert into
+            tool_info(tool_code,tool_name,tool_type,tool_location,note,unit,create_time,modify_time,use_time)
+            values
+            (#{toolCode},#{toolName},#{toolType},#{toolLocation},#{note},#{unit},#{createTime},#{modifyTime},1)
+    </insert>
+
+    <select id="getToolTotal" resultType="java.lang.Long">
+        select count(*) from tool_info ti
+        <where>
+            <if test="keyWord != null">
+                and ti.tool_name like concat('%',#{keyWord},'%')
+            </if>
+        </where>
+    </select>
+</mapper>
