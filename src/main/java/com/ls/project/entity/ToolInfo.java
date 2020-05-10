@@ -13,6 +13,7 @@ public class ToolInfo {
     private String note;
     private String unit;
     private Integer useTime;
+    private String toolStatus;
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
@@ -107,5 +108,14 @@ public class ToolInfo {
 
     public void setUseTime(Integer useTime) {
         this.useTime = useTime;
+    }
+
+
+    public String getToolStatus() {
+        return toolStatus;
+    }
+
+    public void setToolStatus(String toolStatus) {
+        this.toolStatus = toolStatus;
     }
 }

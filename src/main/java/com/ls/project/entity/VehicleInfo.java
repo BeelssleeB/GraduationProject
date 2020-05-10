@@ -10,6 +10,7 @@ public class VehicleInfo {
     private String vehicleCode;
     private Integer vehicleLocation;
     private String note;
+    private String vehicleStatus;
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
@@ -82,4 +83,12 @@ public class VehicleInfo {
         this.warehouseInfo = warehouseInfo;
     }
 
+
+    public String getVehicleStatus() {
+        return vehicleStatus;
+    }
+
+    public void setVehicleStatus(String vehicleStatus) {
+        this.vehicleStatus = vehicleStatus;
+    }
 }

@@ -2,6 +2,7 @@ package com.ls.project.dao;
 
 import com.ls.project.entity.Menu;
 import com.ls.project.entity.Role;
+import com.ls.project.entity.ToolStream;
 import com.ls.project.entity.User;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -21,10 +22,15 @@ import java.util.List;
 public class UserDaoTest {
 
     @Autowired
-    private MenuDao menuDao;
+    private ToolStreamDao toolStreamDao;
 
-    @Autowired
-    private UserDao userDao;
+    @Test
+    public void te(){
+        List<ToolStream> tools= toolStreamDao.getAllToolStreamByPage("一",0,4);
+        for(ToolStream s:tools){
+            System.out.println(s.getToolName());
+        }
+    }
 
     @Test
     public void test() throws Exception {

@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 07/05/2020 21:54:34
+ Date: 10/05/2020 19:33:18
 */
 
 SET NAMES utf8mb4;
@@ -201,42 +201,105 @@ CREATE TABLE `tool_info`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `modify_time` datetime(0) NULL DEFAULT NULL,
   `use_time` int(11) NULL DEFAULT NULL,
+  `tool_status` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tool_info
 -- ----------------------------
-INSERT INTO `tool_info` VALUES (1, 'tool-1', '一号工具', 1, '1-1-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (2, 'tool-2', '二号工具', 1, '1-1-2', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (3, 'tool-3', '三号工具', 1, '1-6-3', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (4, 'tool-4', '四号工具', 1, '2-1-2', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (5, 'tool-5', '五号工具', 1, '1-1-3', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (6, 'tool-6', '六号工具', 2, '1-1-4', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (7, 'tool-7', '七号工具', 2, '1-1-5', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (8, 'tool-8', '八号工具', 2, '1-1-6', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (9, 'tool-9', '九号工具', 2, '1-2-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (10, 'tool-10', '十号工具', 3, '1-2-2', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (11, 'tool-11', '十一号工具', 4, '1-2-3', NULL, 'x5个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (12, 'tool-12', '十二号工具', 2, '1-2-4', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (13, 'tool-13', '十三号工具', 3, '1-2-5', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (14, 'tool-14', '十四号工具', 4, '1-3-1', NULL, 'x10副', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (15, 'tool-15', '十五号工具', 2, '1-3-2', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (16, 'tool-16', '十六号工具', 3, '1-3-3', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (17, 'tool-17', '十七号工具', 1, '1-3-4', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (18, 'tool-18', '十八号工具', 1, '1-3-5', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (19, 'tool-19', '十九号工具', 3, '1-4-1', NULL, 'x2套', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (20, 'tool-20', '二十号工具', 3, '1-4-2', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (21, 'tool-21', '二十一号工具', 3, '1-4-3', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (22, 'tool-22', '二十二号工具', 1, '1-4-4', NULL, 'x2套', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (23, 'tool-23', '二十三号工具', 2, '1-4-5', NULL, 'x2套', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (24, 'tool-24', '二十四号工具', 2, '1-5-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (25, 'tool-25', '二十五号工具', 2, '1-5-2', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (26, 'tool-26', '二十六号工具', 2, '1-5-3', NULL, 'x2套', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (27, 'tool-27', '二十七号工具', 1, '1-5-4', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (28, 'tool-28', '二十八号工具', 1, '1-5-5', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (29, 'tool-29', '二十九号工具', 4, '1-6-1', NULL, 'x10副', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
-INSERT INTO `tool_info` VALUES (30, 'tool-30', '三十号工具', 4, '1-6-2', NULL, 'x10副', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1);
+INSERT INTO `tool_info` VALUES (1, 'tool-1', '一号工具', 1, '1-1-1-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (2, 'tool-2', '二号工具', 1, '1-1-2-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (3, 'tool-3', '三号工具', 1, '1-6-3-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (4, 'tool-4', '四号工具', 1, '2-1-2-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (5, 'tool-5', '五号工具', 1, '1-1-3-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (6, 'tool-6', '六号工具', 2, '1-1-4-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (7, 'tool-7', '七号工具', 2, '1-1-5-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (8, 'tool-8', '八号工具', 2, '1-1-6-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (9, 'tool-9', '九号工具', 2, '1-2-1-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (10, 'tool-10', '十号工具', 3, '1-2-2-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (11, 'tool-11', '十一号工具', 4, '1-2-3-1', NULL, 'x5个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (12, 'tool-12', '十二号工具', 2, '1-2-4-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (13, 'tool-13', '十三号工具', 3, '1-2-5-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (14, 'tool-14', '十四号工具', 4, '1-3-1-1', NULL, 'x10副', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (15, 'tool-15', '十五号工具', 2, '1-3-2-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (16, 'tool-16', '十六号工具', 3, '1-3-3-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (17, 'tool-17', '十七号工具', 1, '1-3-4-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (18, 'tool-18', '十八号工具', 1, '1-3-5-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (19, 'tool-19', '十九号工具', 3, '1-4-1-1', NULL, 'x2套', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (20, 'tool-20', '二十号工具', 3, '1-4-2-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (21, 'tool-21', '二十一号工具', 3, '1-4-3-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (22, 'tool-22', '二十二号工具', 1, '1-4-4-1', NULL, 'x2套', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (23, 'tool-23', '二十三号工具', 2, '1-4-5-1', NULL, 'x2套', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (24, 'tool-24', '二十四号工具', 2, '1-5-1-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (25, 'tool-25', '二十五号工具', 2, '1-5-2-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '1');
+INSERT INTO `tool_info` VALUES (26, 'tool-26', '二十六号工具', 2, '1-5-3-1', NULL, 'x2套', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '0');
+INSERT INTO `tool_info` VALUES (27, 'tool-27', '二十七号工具', 1, '1-5-4-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '0');
+INSERT INTO `tool_info` VALUES (28, 'tool-28', '二十八号工具', 1, '1-5-5-1', NULL, 'x1个', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '0');
+INSERT INTO `tool_info` VALUES (29, 'tool-29', '二十九号工具', 4, '1-6-1-1', NULL, 'x10副', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '0');
+INSERT INTO `tool_info` VALUES (30, 'tool-30', '三十号工具', 4, '1-6-2-1', NULL, 'x10副', '2020-04-16 15:21:38', '2020-04-16 15:21:38', 1, '0');
+
+-- ----------------------------
+-- Table structure for tool_stream
+-- ----------------------------
+DROP TABLE IF EXISTS `tool_stream`;
+CREATE TABLE `tool_stream`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tool_id` int(11) NOT NULL,
+  `worksheet_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tool_stream
+-- ----------------------------
+INSERT INTO `tool_stream` VALUES (1, 1, 1);
+INSERT INTO `tool_stream` VALUES (2, 2, 1);
+INSERT INTO `tool_stream` VALUES (3, 3, 1);
+INSERT INTO `tool_stream` VALUES (4, 4, 1);
+INSERT INTO `tool_stream` VALUES (5, 5, 1);
+INSERT INTO `tool_stream` VALUES (6, 6, 2);
+INSERT INTO `tool_stream` VALUES (7, 7, 2);
+INSERT INTO `tool_stream` VALUES (8, 8, 2);
+INSERT INTO `tool_stream` VALUES (9, 9, 2);
+INSERT INTO `tool_stream` VALUES (10, 10, 2);
+INSERT INTO `tool_stream` VALUES (11, 11, 3);
+INSERT INTO `tool_stream` VALUES (12, 12, 3);
+INSERT INTO `tool_stream` VALUES (13, 13, 3);
+INSERT INTO `tool_stream` VALUES (14, 14, 3);
+INSERT INTO `tool_stream` VALUES (15, 15, 3);
+INSERT INTO `tool_stream` VALUES (16, 16, 3);
+INSERT INTO `tool_stream` VALUES (17, 17, 4);
+INSERT INTO `tool_stream` VALUES (18, 18, 4);
+INSERT INTO `tool_stream` VALUES (19, 19, 4);
+INSERT INTO `tool_stream` VALUES (20, 20, 4);
+INSERT INTO `tool_stream` VALUES (21, 21, 4);
+INSERT INTO `tool_stream` VALUES (22, 22, 4);
+INSERT INTO `tool_stream` VALUES (23, 1, 5);
+INSERT INTO `tool_stream` VALUES (24, 2, 5);
+INSERT INTO `tool_stream` VALUES (25, 3, 5);
+INSERT INTO `tool_stream` VALUES (26, 4, 5);
+INSERT INTO `tool_stream` VALUES (27, 5, 5);
+INSERT INTO `tool_stream` VALUES (28, 6, 5);
+INSERT INTO `tool_stream` VALUES (29, 7, 6);
+INSERT INTO `tool_stream` VALUES (30, 8, 6);
+INSERT INTO `tool_stream` VALUES (31, 9, 6);
+INSERT INTO `tool_stream` VALUES (32, 10, 6);
+INSERT INTO `tool_stream` VALUES (33, 11, 6);
+INSERT INTO `tool_stream` VALUES (34, 12, 6);
+INSERT INTO `tool_stream` VALUES (35, 13, 7);
+INSERT INTO `tool_stream` VALUES (36, 14, 7);
+INSERT INTO `tool_stream` VALUES (37, 15, 7);
+INSERT INTO `tool_stream` VALUES (38, 16, 7);
+INSERT INTO `tool_stream` VALUES (39, 17, 7);
+INSERT INTO `tool_stream` VALUES (40, 18, 7);
+INSERT INTO `tool_stream` VALUES (41, 19, 7);
+INSERT INTO `tool_stream` VALUES (42, 20, 8);
+INSERT INTO `tool_stream` VALUES (43, 21, 8);
+INSERT INTO `tool_stream` VALUES (44, 22, 8);
+INSERT INTO `tool_stream` VALUES (45, 23, 8);
+INSERT INTO `tool_stream` VALUES (46, 24, 8);
+INSERT INTO `tool_stream` VALUES (47, 25, 8);
 
 -- ----------------------------
 -- Table structure for tool_type
@@ -357,24 +420,106 @@ CREATE TABLE `vehicle_infomation`  (
   `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
   `modify_time` datetime(0) NULL DEFAULT NULL,
+  `vehicle_status` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of vehicle_infomation
 -- ----------------------------
-INSERT INTO `vehicle_infomation` VALUES (1, '车辆一', 'car1', 2, NULL, '2020-04-16 16:05:11', '2020-04-16 16:05:38');
-INSERT INTO `vehicle_infomation` VALUES (2, '车辆二', 'car2', 2, NULL, '2020-04-16 16:05:30', '2020-04-16 16:05:38');
-INSERT INTO `vehicle_infomation` VALUES (3, '车辆三', 'car3', 2, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
-INSERT INTO `vehicle_infomation` VALUES (4, '车辆四', 'car4', 4, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
-INSERT INTO `vehicle_infomation` VALUES (5, '车辆五', 'car5', 4, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
-INSERT INTO `vehicle_infomation` VALUES (6, '车辆六', 'car6', 4, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
-INSERT INTO `vehicle_infomation` VALUES (7, '车辆七', 'car7', 6, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
-INSERT INTO `vehicle_infomation` VALUES (8, '车辆八', 'car8', 6, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
-INSERT INTO `vehicle_infomation` VALUES (9, '车辆九', 'car9', 6, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
-INSERT INTO `vehicle_infomation` VALUES (10, '车辆十', 'car10', 6, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
-INSERT INTO `vehicle_infomation` VALUES (11, '车辆十一', 'car11', 8, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
-INSERT INTO `vehicle_infomation` VALUES (12, '车辆十二', 'car12', 8, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
-INSERT INTO `vehicle_infomation` VALUES (13, '车辆十三', 'car13', 8, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38');
+INSERT INTO `vehicle_infomation` VALUES (1, '车辆一', 'car1', 2, NULL, '2020-04-16 16:05:11', '2020-04-16 16:05:38', '0');
+INSERT INTO `vehicle_infomation` VALUES (2, '车辆二', 'car2', 2, NULL, '2020-04-16 16:05:30', '2020-04-16 16:05:38', '1');
+INSERT INTO `vehicle_infomation` VALUES (3, '车辆三', 'car3', 2, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38', '1');
+INSERT INTO `vehicle_infomation` VALUES (4, '车辆四', 'car4', 4, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38', '0');
+INSERT INTO `vehicle_infomation` VALUES (5, '车辆五', 'car5', 4, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38', '1');
+INSERT INTO `vehicle_infomation` VALUES (6, '车辆六', 'car6', 4, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38', '0');
+INSERT INTO `vehicle_infomation` VALUES (7, '车辆七', 'car7', 6, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38', '1');
+INSERT INTO `vehicle_infomation` VALUES (8, '车辆八', 'car8', 6, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38', '1');
+INSERT INTO `vehicle_infomation` VALUES (9, '车辆九', 'car9', 6, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38', '1');
+INSERT INTO `vehicle_infomation` VALUES (10, '车辆十', 'car10', 6, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38', '1');
+INSERT INTO `vehicle_infomation` VALUES (11, '车辆十一', 'car11', 8, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38', '0');
+INSERT INTO `vehicle_infomation` VALUES (12, '车辆十二', 'car12', 8, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38', '0');
+INSERT INTO `vehicle_infomation` VALUES (13, '车辆十三', 'car13', 8, NULL, '2020-04-16 16:05:38', '2020-04-16 16:05:38', '1');
+
+-- ----------------------------
+-- Table structure for vehicle_stream
+-- ----------------------------
+DROP TABLE IF EXISTS `vehicle_stream`;
+CREATE TABLE `vehicle_stream`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_id` int(11) NOT NULL,
+  `worksheet_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of vehicle_stream
+-- ----------------------------
+INSERT INTO `vehicle_stream` VALUES (1, 1, 1);
+INSERT INTO `vehicle_stream` VALUES (2, 2, 1);
+INSERT INTO `vehicle_stream` VALUES (3, 3, 2);
+INSERT INTO `vehicle_stream` VALUES (4, 4, 2);
+INSERT INTO `vehicle_stream` VALUES (5, 5, 3);
+INSERT INTO `vehicle_stream` VALUES (6, 6, 3);
+INSERT INTO `vehicle_stream` VALUES (7, 7, 3);
+INSERT INTO `vehicle_stream` VALUES (8, 8, 8);
+INSERT INTO `vehicle_stream` VALUES (9, 2, 5);
+INSERT INTO `vehicle_stream` VALUES (10, 7, 5);
+INSERT INTO `vehicle_stream` VALUES (11, 5, 5);
+INSERT INTO `vehicle_stream` VALUES (12, 3, 6);
+INSERT INTO `vehicle_stream` VALUES (13, 13, 6);
+INSERT INTO `vehicle_stream` VALUES (14, 10, 7);
+INSERT INTO `vehicle_stream` VALUES (15, 9, 8);
+
+-- ----------------------------
+-- Table structure for worksheet_info
+-- ----------------------------
+DROP TABLE IF EXISTS `worksheet_info`;
+CREATE TABLE `worksheet_info`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `creater` int(11) NULL DEFAULT NULL,
+  `worksheet_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `worksheet_value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `worksheet_type` int(11) NULL DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `begin_time` datetime(0) NULL DEFAULT NULL,
+  `end_time` datetime(0) NULL DEFAULT NULL,
+  `worksheet_status` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of worksheet_info
+-- ----------------------------
+INSERT INTO `worksheet_info` VALUES (1, 1, '一号工单', '1000.00RMB', 1, NULL, '2020-04-17 11:32:06', '2020-04-19 11:32:37', '0');
+INSERT INTO `worksheet_info` VALUES (2, 2, '二号工单', '2000.00RMB', 2, NULL, '2020-04-16 11:34:14', '2020-04-23 11:34:21', '0');
+INSERT INTO `worksheet_info` VALUES (3, 3, '三号工单', '1500.00RMB', 3, NULL, '2020-04-18 11:35:44', '2020-05-01 11:35:49', '0');
+INSERT INTO `worksheet_info` VALUES (4, 4, '四号工单', '2500.00RMB', 4, NULL, '2020-05-01 11:36:25', '2020-05-02 11:36:41', '0');
+INSERT INTO `worksheet_info` VALUES (5, 1, '五号工单', '3000.00RMB', 5, NULL, '2020-05-07 11:37:21', NULL, '1');
+INSERT INTO `worksheet_info` VALUES (6, 2, '六号工单', '2222.00RMB', 6, NULL, '2020-05-05 11:38:12', NULL, '1');
+INSERT INTO `worksheet_info` VALUES (7, 3, '七号工单', '3333.00RMB', 7, NULL, '2020-05-03 11:40:28', NULL, '1');
+INSERT INTO `worksheet_info` VALUES (8, 4, '八号工单', '1234.00RMB', 8, NULL, '2020-05-04 11:41:00', NULL, '1');
+
+-- ----------------------------
+-- Table structure for worksheet_type
+-- ----------------------------
+DROP TABLE IF EXISTS `worksheet_type`;
+CREATE TABLE `worksheet_type`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `worksheet_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of worksheet_type
+-- ----------------------------
+INSERT INTO `worksheet_type` VALUES (1, '工单类型一');
+INSERT INTO `worksheet_type` VALUES (2, '工单类型二');
+INSERT INTO `worksheet_type` VALUES (3, '工单类型三');
+INSERT INTO `worksheet_type` VALUES (4, '工单类型四');
+INSERT INTO `worksheet_type` VALUES (5, '工单类型五');
+INSERT INTO `worksheet_type` VALUES (6, '工单类型六');
+INSERT INTO `worksheet_type` VALUES (7, '工单类型七');
+INSERT INTO `worksheet_type` VALUES (8, '工单类型八');
 
 SET FOREIGN_KEY_CHECKS = 1;

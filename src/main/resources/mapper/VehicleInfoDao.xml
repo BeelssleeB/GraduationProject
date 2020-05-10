@@ -12,6 +12,7 @@
         <result column="create_time" property="createTime" jdbcType="DATE"/>
         <result column="modify_time" property="modifyTime" jdbcType="DATE"/>
         <result column="note" property="note" jdbcType="VARCHAR"/>
+        <result column="vehicle_status" property="vehicleStatus" jdbcType="VARCHAR"/>
     </resultMap>
 
     <resultMap id="vehicleInfo" type="com.ls.project.entity.VehicleInfo" extends="BaseResultMap">
@@ -26,7 +27,7 @@
     </select>
 
     <select id="getAllVehicleInfoByPage" resultMap="vehicleInfo">
-        SELECT vi.id,vi.vehicle_code,vi.vehicle_name,vi.vehicle_location,vi.create_time,vi.modify_time,vi.note,ti.id AS id1,ti.warehouse_name AS name1
+        SELECT vi.id,vi.vehicle_code,vi.vehicle_name,vi.vehicle_location,vi.create_time,vi.modify_time,vi.note,vi.vehicle_status,ti.id AS id1,ti.warehouse_name AS name1
         FROM vehicle_infomation vi,treasury_information ti
         WHERE vi.vehicle_location = ti.id
         <if test="keyWord != null">
@@ -68,9 +69,9 @@
     <insert id="saveVehicleInfo" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id" parameterType="com.ls.project.entity.VehicleInfo">
             insert into
-            vehicle_infomation(vehicle_name,vehicle_code,vehicle_location,note,create_time,modify_time)
+            vehicle_infomation(vehicle_name,vehicle_code,vehicle_location,note,create_time,modify_time,vehicle_status)
             values
-            (#{vehicleName},#{vehicleCode},#{vehicleLocation},#{note},#{createTime},#{modifyTime})
+            (#{vehicleName},#{vehicleCode},#{vehicleLocation},#{note},#{createTime},#{modifyTime},0)
     </insert>
 
     <select id="getVehicleTotal" resultType="java.lang.Long">

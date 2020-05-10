@@ -15,6 +15,7 @@
         <result column="create_time" property="createTime" jdbcType="DATE"/>
         <result column="modify_time" property="modifyTime" jdbcType="DATE"/>
         <result column="use_time" property="useTime" jdbcType="INTEGER"/>
+        <result column="tool_status" property="toolStatus" jdbcType="VARCHAR"/>
     </resultMap>
 
     <resultMap id="toolInfo" type="com.ls.project.entity.ToolInfo" extends="BaseResultMap">
@@ -25,7 +26,7 @@
     </resultMap>
 
     <select id="getAllToolByPage" resultMap="toolInfo">
-        SELECT ti.id, ti.tool_code, ti.tool_name, ti.tool_type, ti.tool_location, ti.note, ti.unit, ti.create_time, ti.modify_time,ti.use_time,tt.id AS id1,tt.tool_type AS toolType1
+        SELECT ti.id, ti.tool_code, ti.tool_name, ti.tool_type, ti.tool_location, ti.note, ti.unit, ti.create_time, ti.modify_time,ti.use_time,ti.tool_status,tt.id AS id1,tt.tool_type AS toolType1
         FROM `tool_info` ti,tool_type tt
         WHERE ti.tool_type = tt.id
         <if test="keyWord != null">
@@ -77,9 +78,9 @@
     <insert id="saveToolInfo" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id" parameterType="com.ls.project.entity.ToolInfo">
             insert into
-            tool_info(tool_code,tool_name,tool_type,tool_location,note,unit,create_time,modify_time,use_time)
+            tool_info(tool_code,tool_name,tool_type,tool_location,note,unit,create_time,modify_time,use_time,tool_status)
             values
-            (#{toolCode},#{toolName},#{toolType},#{toolLocation},#{note},#{unit},#{createTime},#{modifyTime},1)
+            (#{toolCode},#{toolName},#{toolType},#{toolLocation},#{note},#{unit},#{createTime},#{modifyTime},1,0)
     </insert>
 
     <select id="getToolTotal" resultType="java.lang.Long">
