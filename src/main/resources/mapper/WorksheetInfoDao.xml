@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ls.project.dao.WorksheetInfoDao">
+
+    <resultMap id="BaseResultMap" type="com.ls.project.entity.WorksheetInfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="creator" property="creator" jdbcType="INTEGER"/>
+        <result column="worksheet_name" property="worksheetName" jdbcType="VARCHAR"/>
+        <result column="worksheet_value" property="worksheetValue" jdbcType="VARCHAR"/>
+        <result column="worksheet_type" property="worksheetType" jdbcType="INTEGER"/>
+        <result column="note" property="note" jdbcType="VARCHAR"/>
+        <result column="begin_time" property="beginTime" jdbcType="DATE"/>
+        <result column="end_time" property="endTime" jdbcType="DATE"/>
+        <result column="worksheet_status" property="worksheetStatus" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="worksheetInfo" type="com.ls.project.entity.WorksheetInfo" extends="BaseResultMap">
+        <association property="user" javaType="com.ls.project.entity.User">
+            <id column="id1" property="userId"/>
+            <result column="user_name" property="userName"/>
+        </association>
+        <association property="worksheetTypeName" javaType="com.ls.project.entity.WorksheetType">
+            <id column="id2" property="id"/>
+            <result column="wt1" property="worksheetType"/>
+        </association>
+        <collection property="toolInfoList" ofType="com.ls.project.entity.ToolInfo">
+            <id column="id3" property="id"/>
+            <result column="tool_name" property="toolName"/>
+            <result column="unit" property="unit"/>
+        </collection>
+        <collection property="vehicleInfoList" ofType="com.ls.project.entity.VehicleInfo">
+            <id column="id4" property="id"/>
+            <result column="vehicle_name" property="vehicleName"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAllWorksheetByPage" resultMap="worksheetInfo">
+        SELECT
+        *
+        FROM
+        (
+        SELECT
+        wi.id,
+        wi.creator,
+        wi.worksheet_name,
+        wi.worksheet_value,
+        wi.worksheet_type,
+        wi.note,
+        wi.begin_time,
+        wi.end_time,
+        wi.worksheet_status,
+        u.user_id AS id1,
+        u.user_name,
+        wt.id AS id2,
+        wt.worksheet_type AS wt1,
+        ti.id AS id3,
+        ti.tool_name,
+        ti.unit
+        FROM
+        USER u,
+        worksheet_info wi,
+        worksheet_type wt,
+        tool_stream ts,
+        tool_info ti
+        WHERE
+        u.user_id = wi.creator
+        AND wi.worksheet_type = wt.id
+        AND wi.id = ts.worksheet_id
+        AND ts.tool_id = ti.id
+        <if test="keyWord != null">
+            and wi.worksheet_name like concat('%',#{keyWord},'%')
+        </if>
+        ORDER BY wi.id
+        ) AS A
+        LEFT JOIN (
+        SELECT
+        vi.id AS id4,
+        vs.worksheet_id,
+        vi.vehicle_name
+        FROM
+        vehicle_infomation vi,
+        vehicle_stream vs
+        WHERE
+        vs.vehicle_id = vi.id
+        ) AS B ON A.id = B.worksheet_id
+    </select>
+
+    <select id="getAllWorksheetType" resultType="com.ls.project.entity.WorksheetType">
+        select * from worksheet_type
+    </select>
+
+    <update id="updateWorksheetInfo" parameterType="com.ls.project.entity.WorksheetInfo">
+        update worksheet_info wi
+        <set>
+            <if test="worksheetName != null">
+                worksheet_name = #{worksheetName},
+            </if>
+            <if test="worksheetType != null">
+                worksheet_type = #{worksheetType},
+            </if>
+            <if test="note != null">
+                note = #{note}
+            </if>
+        </set>
+        where wi.id = #{id}
+    </update>
+
+    <select id="getWorksheetTotal" resultType="java.lang.Long">
+        select count(*) from worksheet_info wi
+        <where>
+            <if test="keyWord != null">
+                and wi.worksheet_name like concat('%',#{keyWord},'%')
+            </if>
+        </where>
+    </select>
+
+    <update id="finishWorksheet" parameterType="java.lang.Integer">
+        update worksheet_info wi
+        set wi.worksheet_status = '0',wi.end_time = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%m:%s')
+        where wi.id = #{worksheetId}
+    </update>
+
+<!--    <update id="finishVehicleInfo" parameterType="java.lang.Integer">-->
+<!--        update vi-->
+<!--        set vi.vehicle_status = '0'-->
+<!--        from vehicle_info vi join vehicle_stream vs on vs.worksheet_id = vi.id-->
+<!--        where vs.worksheet_id = #{worksheetId}-->
+<!--    </update>-->
+</mapper>

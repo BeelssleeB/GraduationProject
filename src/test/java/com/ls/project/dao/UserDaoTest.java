@@ -1,9 +1,6 @@
 package com.ls.project.dao;
 
-import com.ls.project.entity.Menu;
-import com.ls.project.entity.Role;
-import com.ls.project.entity.ToolStream;
-import com.ls.project.entity.User;
+import com.ls.project.entity.*;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -22,13 +19,25 @@ import java.util.List;
 public class UserDaoTest {
 
     @Autowired
-    private ToolStreamDao toolStreamDao;
+    private WorksheetInfoDao worksheetInfoDao;
 
     @Test
     public void te(){
-        List<ToolStream> tools= toolStreamDao.getAllToolStreamByPage("一",0,4);
-        for(ToolStream s:tools){
-            System.out.println(s.getToolName());
+        List<WorksheetInfo> tools= worksheetInfoDao.getAllWorksheetByPage(null);
+        for(WorksheetInfo s:tools){
+            System.out.println("第"+s.getId()+"个工单信息-----------");
+            System.out.println(s.getCreator());
+            System.out.println(s.getBeginTime());
+            System.out.println(s.getUser().getUserName());
+            System.out.println(s.getWorksheetTypeName().getWorksheetType());
+            System.out.println("工具信息--------");
+            for(ToolInfo t:s.getToolInfoList()){
+                System.out.println(t.getToolName());
+            }
+            System.out.println("车辆信息--------");
+            for(VehicleInfo v:s.getVehicleInfoList()){
+                System.out.println(v.getVehicleName());
+            }
         }
     }
 
