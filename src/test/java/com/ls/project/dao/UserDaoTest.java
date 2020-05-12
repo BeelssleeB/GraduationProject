@@ -23,22 +23,11 @@ public class UserDaoTest {
 
     @Test
     public void te(){
-        List<WorksheetInfo> tools= worksheetInfoDao.getAllWorksheetByPage(null);
-        for(WorksheetInfo s:tools){
-            System.out.println("第"+s.getId()+"个工单信息-----------");
-            System.out.println(s.getCreator());
-            System.out.println(s.getBeginTime());
-            System.out.println(s.getUser().getUserName());
-            System.out.println(s.getWorksheetTypeName().getWorksheetType());
-            System.out.println("工具信息--------");
-            for(ToolInfo t:s.getToolInfoList()){
-                System.out.println(t.getToolName());
-            }
-            System.out.println("车辆信息--------");
-            for(VehicleInfo v:s.getVehicleInfoList()){
-                System.out.println(v.getVehicleName());
-            }
-        }
+        List<Integer> a = new ArrayList<>();
+        a.add(1);
+        a.add(2);
+        int e= worksheetInfoDao.insertToolStream(9,a);
+        System.out.println(e);
     }
 
     @Test

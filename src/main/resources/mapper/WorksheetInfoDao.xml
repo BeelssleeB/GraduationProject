@@ -91,6 +91,14 @@
         select * from worksheet_type
     </select>
 
+    <select id="getAllTool" resultType="com.ls.project.entity.ToolInfo">
+        select * from tool_info ti where ti.tool_status = '0' order by ti.use_time ASC
+    </select>
+
+    <select id="getAllVehicle" resultType="com.ls.project.entity.VehicleInfo">
+        select * from vehicle_infomation vi where vi.vehicle_status = '0'
+    </select>
+
     <update id="updateWorksheetInfo" parameterType="com.ls.project.entity.WorksheetInfo">
         update worksheet_info wi
         <set>
@@ -122,10 +130,59 @@
         where wi.id = #{worksheetId}
     </update>
 
-<!--    <update id="finishVehicleInfo" parameterType="java.lang.Integer">-->
-<!--        update vi-->
-<!--        set vi.vehicle_status = '0'-->
-<!--        from vehicle_info vi join vehicle_stream vs on vs.worksheet_id = vi.id-->
-<!--        where vs.worksheet_id = #{worksheetId}-->
-<!--    </update>-->
+    <update id="finishVehicleInfo" parameterType="java.lang.Integer">
+        UPDATE vehicle_infomation vi
+        SET vi.vehicle_status = '0'
+        WHERE vi.id IN (SELECT vs.vehicle_id FROM vehicle_stream vs WHERE vs.worksheet_id = #{worksheetId})
+    </update>
+
+    <update id="finishToolInfo" parameterType="java.lang.Integer">
+        UPDATE tool_info ti
+        SET ti.tool_status = '0',use_time = use_time + 1
+        WHERE ti.id IN (SELECT ts.tool_id FROM tool_stream ts WHERE ts.worksheet_id = #{worksheetId})
+    </update>
+
+    <insert id="insertToolStream" useGeneratedKeys="true" keyColumn="id">
+        INSERT INTO tool_stream(tool_id,worksheet_id)
+        VALUES
+        <foreach collection="toolIds" item="toolId" separator=",">
+            (#{toolId},#{worksheetId})
+        </foreach>
+    </insert>
+
+    <insert id="insertVehicleStream" useGeneratedKeys="true" keyColumn="id">
+        INSERT INTO vehicle_stream(vehicle_id,worksheet_id)
+        VALUES
+        <foreach collection="vehicleIds" item="vehicleId" separator=",">
+            (#{vehicleId},#{worksheetId})
+        </foreach>
+    </insert>
+
+    <update id="updateToolInfo" parameterType="java.util.List">
+        UPDATE tool_info ti
+        SET ti.tool_status = '1'
+        WHERE ti.id IN
+        <foreach item="item" index="index" collection="toolIds"
+                                open="(" separator="," close=")">
+        #{item}
+        </foreach>
+    </update>
+
+    <update id="updateVehicleInfo" parameterType="java.util.List">
+        UPDATE vehicle_infomation vi
+        SET vi.vehicle_status = '1'
+        WHERE vi.id IN
+        <foreach item="item" index="index" collection="vehicleIds"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <insert id="saveWorksheetInfo" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id" parameterType="com.ls.project.entity.WorksheetInfo">
+            insert into
+            worksheet_info(creator,worksheet_name,worksheet_value,worksheet_type,note,begin_time,end_time,worksheet_status)
+            values
+            (#{creator},#{worksheet_name},#{worksheet_value},#{worksheet_type},#{note},#{begin_time},#{end_time},#{worksheet_status})
+    </insert>
 </mapper>

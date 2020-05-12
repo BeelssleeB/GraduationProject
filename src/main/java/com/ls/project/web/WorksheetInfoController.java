@@ -1,7 +1,6 @@
 package com.ls.project.web;
 
-import com.ls.project.entity.WorksheetInfo;
-import com.ls.project.entity.WorksheetType;
+import com.ls.project.entity.*;
 import com.ls.project.service.WorksheetInfoService;
 import com.ls.project.utils.RespBean;
 import com.ls.project.utils.RespPageBean;
@@ -22,6 +21,16 @@ public class WorksheetInfoController {
         return worksheetInfoService.getAllTypes();
     }
 
+    @GetMapping("/getalltools")
+    public List<ToolInfo> getAllTools(){
+        return worksheetInfoService.getAllTools();
+    }
+
+    @GetMapping("/getallvehicles")
+    public List<VehicleInfo> getAllVehicles(){
+        return worksheetInfoService.getAllVehicles();
+    }
+
     @GetMapping("/")
     public RespPageBean getAllWorksheetInfo(@RequestParam(value="keyword") String keyWord,
                                             @RequestParam(value="page") Integer page,
@@ -37,11 +46,35 @@ public class WorksheetInfoController {
         return RespBean.error("工单更新失败!");
     }
 
+    @PutMapping("/updatetool")
+    public RespBean updateToolInfo(@RequestBody WorksheetInfo worksheetInfo){
+        if (worksheetInfoService.updateToolInfo(worksheetInfo)) {
+            return RespBean.ok("工具添加成功!");
+        }
+        return RespBean.error("工具添加失败!");
+    }
+
+    @PutMapping("/updatevehicle")
+    public RespBean updateVehicleInfo(@RequestBody WorksheetInfo worksheetInfo){
+        if (worksheetInfoService.updateVehicleInfo(worksheetInfo)) {
+            return RespBean.ok("车辆添加成功!");
+        }
+        return RespBean.error("车辆添加失败!");
+    }
+
     @DeleteMapping("/finishworksheet/{id}")
     public RespBean deleteWarehouseById(@PathVariable Integer id){
         if(worksheetInfoService.finishWorksheetById(id)){
             return RespBean.ok("结束工单成功!");
         }
         return RespBean.error("结束工单失败!");
+    }
+
+    @PostMapping("/saveworksheet")
+    public RespBean saveWorksheetInfo(@RequestBody WorksheetInfo worksheetInfo){
+        if (worksheetInfoService.saveWorksheetInfo(worksheetInfo)) {
+            return RespBean.ok("工单添加成功!");
+        }
+        return RespBean.error("工单添加失败!");
     }
 }
