@@ -1,5 +1,6 @@
 package com.ls.project.web;
 
+import com.ls.project.annotation.LogAnnotation;
 import com.ls.project.entity.Role;
 import com.ls.project.entity.User;
 import com.ls.project.service.RoleService;
@@ -31,6 +32,7 @@ public class UserManageController {
         return roleService.getAllRoles();
     }
 
+    @LogAnnotation(module = "更新用户信息")
     @PutMapping("/updateuser")
     public RespBean putUserInfo(@RequestBody User user) {
         if(userService.updateUserDetail(user)){
@@ -39,6 +41,7 @@ public class UserManageController {
         return RespBean.error("信息更新失败!");
     }
 
+    @LogAnnotation(module = "删除用户")
     @DeleteMapping("/deleteuser/{id}")
     public RespBean deleteUser(@PathVariable Integer id){
         if (userService.deleteUser(id)) {

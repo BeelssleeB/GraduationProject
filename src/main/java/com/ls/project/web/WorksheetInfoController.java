@@ -1,5 +1,6 @@
 package com.ls.project.web;
 
+import com.ls.project.annotation.LogAnnotation;
 import com.ls.project.entity.*;
 import com.ls.project.service.WorksheetInfoService;
 import com.ls.project.utils.RespBean;
@@ -38,6 +39,7 @@ public class WorksheetInfoController {
         return worksheetInfoService.getAllWorksheetInfo(keyWord, page, size);
     }
 
+    @LogAnnotation(module = "更新工单")
     @PutMapping("/updateworksheet")
     public RespBean updateWorksheetInfo(@RequestBody WorksheetInfo worksheetInfo){
         if (worksheetInfoService.updateWorksheetInfo(worksheetInfo)) {
@@ -46,6 +48,7 @@ public class WorksheetInfoController {
         return RespBean.error("工单更新失败!");
     }
 
+    @LogAnnotation(module = "添加工单所用工具")
     @PutMapping("/updatetool")
     public RespBean updateToolInfo(@RequestBody WorksheetInfo worksheetInfo){
         if (worksheetInfoService.updateToolInfo(worksheetInfo)) {
@@ -54,6 +57,7 @@ public class WorksheetInfoController {
         return RespBean.error("工具添加失败!");
     }
 
+    @LogAnnotation(module = "添加工单所用车辆")
     @PutMapping("/updatevehicle")
     public RespBean updateVehicleInfo(@RequestBody WorksheetInfo worksheetInfo){
         if (worksheetInfoService.updateVehicleInfo(worksheetInfo)) {
@@ -62,6 +66,7 @@ public class WorksheetInfoController {
         return RespBean.error("车辆添加失败!");
     }
 
+    @LogAnnotation(module = "结束工单")
     @DeleteMapping("/finishworksheet/{id}")
     public RespBean deleteWarehouseById(@PathVariable Integer id){
         if(worksheetInfoService.finishWorksheetById(id)){
@@ -70,6 +75,7 @@ public class WorksheetInfoController {
         return RespBean.error("结束工单失败!");
     }
 
+    @LogAnnotation(module = "添加工单")
     @PostMapping("/saveworksheet")
     public RespBean saveWorksheetInfo(@RequestBody WorksheetInfo worksheetInfo){
         if (worksheetInfoService.saveWorksheetInfo(worksheetInfo)) {

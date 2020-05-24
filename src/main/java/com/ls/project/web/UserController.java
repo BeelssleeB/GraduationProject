@@ -1,5 +1,6 @@
 package com.ls.project.web;
 
+import com.ls.project.annotation.LogAnnotation;
 import com.ls.project.entity.User;
 import com.ls.project.service.UserService;
 import com.ls.project.utils.RespBean;
@@ -27,6 +28,7 @@ public class UserController {
         return userMap;
     }
 
+    @LogAnnotation(module = "更新个人信息")
     @PutMapping(value="/putuserinfo")
     public RespBean putUserInfo(@RequestBody User user) {
         if(userService.updateUser(user)){
@@ -35,6 +37,7 @@ public class UserController {
         return RespBean.error("更新失败!");
     }
 
+    @LogAnnotation(module = "修改登录密码")
     @PutMapping(value="/updatepwd")
     public RespBean putUserPwd(@RequestBody Map<String ,Object> pwd) {
         String oldPwd = (String) pwd.get("oldpwd");
@@ -45,6 +48,7 @@ public class UserController {
         return RespBean.error("密码重置失败!");
     }
 
+    @LogAnnotation(module = "设置头像")
     @PostMapping(value="/useravatar")
     public RespBean updateUserAvatar(MultipartFile file) throws IOException {
         if(userService.updateUserAvatar(file)){

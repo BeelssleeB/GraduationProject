@@ -1,5 +1,6 @@
 package com.ls.project.web;
 
+import com.ls.project.annotation.LogAnnotation;
 import com.ls.project.entity.Menu;
 import com.ls.project.entity.Role;
 import com.ls.project.service.MenuService;
@@ -40,6 +41,7 @@ public class RoleManageController {
         return menuService.getMenuByRoleId(id);
     }
 
+    @LogAnnotation(module = "更新角色")
     @PutMapping("/updaterole")
     public RespBean updateRoleInfo(@RequestBody Role role){
         if (roleService.updateRoleInfo(role)) {
@@ -48,6 +50,7 @@ public class RoleManageController {
         return RespBean.error("角色更新失败!");
     }
 
+    @LogAnnotation(module = "添加角色")
     @PostMapping("/saverole")
     public RespBean saveRoleInfo(@RequestBody Role role){
         if (roleService.saveRole(role)) {
@@ -56,6 +59,7 @@ public class RoleManageController {
         return RespBean.error("角色添加失败!");
     }
 
+    @LogAnnotation(module = "删除角色")
     @DeleteMapping("/deleterole/{id}")
     public RespBean deleteUser(@PathVariable Integer id){
         if (roleService.deleteRole(id)) {

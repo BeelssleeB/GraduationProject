@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ls.project.dao.LogDao">
+
+    <resultMap id="BaseResultMap" type="com.ls.project.entity.Log">
+        <id column="id" property="id"/>
+        <result column="module" property="module"/>
+        <result column="flag" property="flag"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <resultMap id="logInfo" type="com.ls.project.entity.Log" extends="BaseResultMap">
+        <association property="user" javaType="com.ls.project.entity.User">
+            <id column="id1" property="userId"/>
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllLogInfoByPage" resultMap="logInfo">
+        select l.*, u.user_id as id1, u.name from log l left join user
+        u on
+        u.user_id = l.user_id
+        order by l.id
+        desc
+        <if test="page!=null and size!=null">
+            limit #{page},#{size}
+        </if>
+    </select>
+
+    <insert id="save" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id" parameterType="com.ls.project.entity.Log">
+            insert into
+            log(user_id, module, flag, remark, create_time)
+            values
+            (#{user.userId},#{module},#{flag},#{remark},now())
+    </insert>
+
+    <select id="getLogTotal" resultType="java.lang.Long">
+        select count(1) from log l left join user
+		u on
+		u.user_id = l.user_id
+    </select>
+</mapper>

@@ -1,6 +1,7 @@
 package com.ls.project.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ls.project.annotation.LogAnnotation;
 import com.ls.project.entity.User;
 import com.ls.project.service.UserService;
 import com.ls.project.utils.RespBean;
@@ -26,8 +27,9 @@ import java.util.Map;
 public class LoginController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
+    @LogAnnotation(module = "用户登录")
     @PostMapping("/login")
     public RespBean login(@RequestBody Map params) {
         /**
@@ -63,6 +65,7 @@ public class LoginController {
         return isAuthenticated ? RespBean.ok("已认证", true) : RespBean.error("未登录，请先登录!", false);
     }
 
+    @LogAnnotation(module = "用户退出")
     @GetMapping("/logout")
     public RespBean logout() {
         Subject subject = SecurityUtils.getSubject();

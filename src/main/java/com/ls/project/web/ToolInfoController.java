@@ -1,5 +1,6 @@
 package com.ls.project.web;
 
+import com.ls.project.annotation.LogAnnotation;
 import com.ls.project.entity.ToolInfo;
 import com.ls.project.entity.ToolType;
 import com.ls.project.service.ToolInfoService;
@@ -29,6 +30,7 @@ public class ToolInfoController {
         return toolInfoService.getAllToolInfo(keyWord, page, size);
     }
 
+    @LogAnnotation(module = "删除工具")
     @DeleteMapping("/deletetool/{id}")
     public RespBean deleteToolById(@PathVariable Integer id){
         if(toolInfoService.deleteToolById(id)){
@@ -37,6 +39,7 @@ public class ToolInfoController {
         return RespBean.error("工具删除失败!");
     }
 
+    @LogAnnotation(module = "更新工具")
     @PutMapping("/updatetool")
     public RespBean updateToolInfo(@RequestBody ToolInfo toolInfo){
         if (toolInfoService.updateToolInfo(toolInfo)) {
@@ -45,6 +48,7 @@ public class ToolInfoController {
         return RespBean.error("工具更新失败!");
     }
 
+    @LogAnnotation(module = "添加工具")
     @PostMapping("/savetool")
     public RespBean saveToolInfo(@RequestBody ToolInfo toolInfo){
         if (toolInfoService.saveToolInfo(toolInfo)) {

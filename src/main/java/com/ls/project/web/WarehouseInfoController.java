@@ -1,5 +1,6 @@
 package com.ls.project.web;
 
+import com.ls.project.annotation.LogAnnotation;
 import com.ls.project.entity.WarehouseInfo;
 import com.ls.project.entity.WarehouseType;
 import com.ls.project.service.WarehouseInfoService;
@@ -30,6 +31,7 @@ public class WarehouseInfoController {
         return warehouseInfoService.getAllWarehouseInfo(keyWord, page, size, typeId);
     }
 
+    @LogAnnotation(module = "删除库房")
     @DeleteMapping("/deleteware/{id}")
     public RespBean deleteWarehouseById(@PathVariable Integer id){
         if(warehouseInfoService.deleteWarehouseById(id)){
@@ -38,6 +40,7 @@ public class WarehouseInfoController {
         return RespBean.error("库房删除失败!");
     }
 
+    @LogAnnotation(module = "更新库房")
     @PutMapping("/updateware")
     public RespBean updateWarehouseInfo(@RequestBody WarehouseInfo warehouseInfo){
         if (warehouseInfoService.updateWarehouseInfo(warehouseInfo)) {
@@ -46,6 +49,7 @@ public class WarehouseInfoController {
         return RespBean.error("库房更新失败!");
     }
 
+    @LogAnnotation(module = "添加库房")
     @PostMapping("/saveware")
     public RespBean saveWarehouseInfo(@RequestBody WarehouseInfo warehouseInfo){
         if (warehouseInfoService.saveWarehouseInfo(warehouseInfo)) {

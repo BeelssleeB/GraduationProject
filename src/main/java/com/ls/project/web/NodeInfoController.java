@@ -1,5 +1,6 @@
 package com.ls.project.web;
 
+import com.ls.project.annotation.LogAnnotation;
 import com.ls.project.entity.Node;
 import com.ls.project.entity.User;
 import com.ls.project.entity.WarehouseInfo;
@@ -34,6 +35,7 @@ public class NodeInfoController {
         return nodeInfoService.getAllNodeInfo(keyWord, page, size);
     }
 
+    @LogAnnotation(module = "删除节点")
     @DeleteMapping("/deleteNode/{id}")
     public RespBean deleteNodeById(@PathVariable Integer id){
         if(nodeInfoService.deleteNodeById(id)){
@@ -42,6 +44,7 @@ public class NodeInfoController {
         return RespBean.error("节点删除失败!");
     }
 
+    @LogAnnotation(module = "更新节点")
     @PutMapping("/updateNode")
     public RespBean updateNodeInfo(@RequestBody Node node){
         if (nodeInfoService.updateNodeInfo(node)) {
@@ -50,6 +53,7 @@ public class NodeInfoController {
         return RespBean.error("节点更新失败!");
     }
 
+    @LogAnnotation(module = "新建节点")
     @PostMapping("/saveNode")
     public RespBean saveNodeInfo(@RequestBody Node node){
         if (nodeInfoService.saveNodeInfo(node)) {

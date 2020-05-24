@@ -1,5 +1,6 @@
 package com.ls.project.web;
 
+import com.ls.project.annotation.LogAnnotation;
 import com.ls.project.entity.VehicleInfo;
 import com.ls.project.entity.WarehouseInfo;
 import com.ls.project.service.VehicleInfoService;
@@ -29,6 +30,7 @@ public class VehicleInfoController {
         return vehicleInfoService.getAllVehicleInfo(keyWord, page, size);
     }
 
+    @LogAnnotation(module = "删除车辆")
     @DeleteMapping("/deletevehicle/{id}")
     public RespBean deleteVehicleById(@PathVariable Integer id){
         if(vehicleInfoService.deleteVehicleById(id)){
@@ -37,6 +39,7 @@ public class VehicleInfoController {
         return RespBean.error("车辆删除失败!");
     }
 
+    @LogAnnotation(module = "更新车辆")
     @PutMapping("/updatevehicle")
     public RespBean updateVehicleInfo(@RequestBody VehicleInfo vehicleInfo){
         if (vehicleInfoService.updateVehicleInfo(vehicleInfo)) {
@@ -45,6 +48,7 @@ public class VehicleInfoController {
         return RespBean.error("车辆更新失败!");
     }
 
+    @LogAnnotation(module = "添加车辆")
     @PostMapping("/savevehicle")
     public RespBean saveWarehouseInfo(@RequestBody VehicleInfo vehicleInfo){
         if (vehicleInfoService.saveVehicleInfo(vehicleInfo)) {
